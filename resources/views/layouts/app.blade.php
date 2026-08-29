@@ -180,7 +180,7 @@
                                 data-toggle="dropdown">
 
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name ?? ''}}
                                 </span>
 
                                 <i class="fas fa-user-circle fa-lg"></i>
