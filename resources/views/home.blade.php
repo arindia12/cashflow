@@ -145,7 +145,7 @@
                         Transaksi Terbaru
                     </h6>
 
-                    <a href="#" class="small">
+                    <a href="{{ route('transactions.index') }}" class="small">
                         Lihat semua
                     </a>
 

@@ -1,110 +1,140 @@
 @extends('layouts.app')
 
-@section('content')
+@section('title', 'Transaksi')
 
-<div class="container-fluid">
+@section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Transaksi</h1>
-
-        <a href="#" class="btn btn-primary">
-            <i class="fas fa-plus"></i>
-            Tambah Transaksi
-        </a>
     </div>
 
-    <div class="card shadow mb-4">
+    <div class="card">
 
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
+        <div class="card-header d-flex align-items-center justify-content-between">
+
+            <h5 class="card-title mb-0">
                 Data Transaksi
-            </h6>
+            </h5>
+
+            <a href="{{ route('transactions.create') }}" class="btn btn-primary">
+                <span class="fa fa-plus-circle mr-2"></span>
+                <span>Tambah Transaksi</span>
+            </a>
+
         </div>
 
         <div class="card-body">
 
-            <div class="table-responsive">
+            <table class="table table-striped table-hover datatable">
 
-                <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Kategori</th>
+                        <th>Jenis</th>
+                        <th>Jumlah</th>
+                        <th>Keterangan</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
 
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>Jenis</th>
-                            <th>Jumlah</th>
-                            <th>Metode Pembayaran</th>
-                            <th>Keterangan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
+                <tbody>
 
-                    <tbody>
-
-                        @forelse ($transactions as $transaction)
+                    @foreach ($transactions as $transaction)
 
                         <tr>
 
                             <td>{{ $loop->iteration }}</td>
 
-                            <td>
-                                {{ $transaction->date }}
-                            </td>
+                            <td>{{ $transaction->date }}</td>
 
-                            <td>
-                                {{ $transaction->type }}
-                            </td>
+                            <td>{{ $transaction->category->name ?? '-' }}</td>
+
+                            <td>{{ $transaction->type }}</td>
 
                             <td>
                                 Rp {{ number_format($transaction->amount, 0, ',', '.') }}
                             </td>
 
                             <td>
-                                {{ $transaction->payment_method }}
-                            </td>
-
-                            <td>
-                                {{ $transaction->description }}
+                                {{ $transaction->description ?? '-' }}
                             </td>
 
                             <td>
 
-                                <a href="#" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i>
+                                <a href="{{ route('transactions.show') }}"
+                                   class="btn btn-link text-secondary p-0 mx-2">
+                                    <span class="fa fa-search"></span>
                                 </a>
 
-                                <a href="#" class="btn btn-sm btn-warning">
-                                    <i class="fas fa-edit"></i>
+                                <a href="{{ route('transactions.edit') }}"
+                                   class="btn btn-link p-0 mx-2">
+                                    <span class="fa fa-edit"></span>
                                 </a>
 
-                                <a href="#" class="btn btn-sm btn-danger">
-                                    <i class="fas fa-trash"></i>
+                                <a href="{{ route('transactions.destroy') }}"
+                                   class="btn btn-link text-danger p-0 mx-2">
+                                    <span class="fa fa-trash"></span>
                                 </a>
 
                             </td>
 
                         </tr>
 
-                        @empty
+                    @endforeach
 
-                        <tr>
-                            <td colspan="7" class="text-center">
-                                Belum ada data transaksi.
-                            </td>
-                        </tr>
+                </tbody>
 
-                        @endforelse
+            </table>
 
-                    </tbody>
-
-                </table>
-
-            </div>
+<form id="form-destroy" method="POST" style="display: none;">
+    @csrf
+    @method('DELETE')
+</form>
 
         </div>
 
     </div>
 
-</div>
-
 @endsection
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" />
+@endpush
+
+@push('scripts')
+<script type="text/javascript" src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script type="text/javascript">
+    $('.datatable').dataTable();
+    
+    function handleDestroy(url) {
+        Swal.fire({
+            title: "Apakah kamu ingin menghapus?",
+            text: "Kamu tidak bisa mengembalikan data yang sudah dihapus!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#form-destroy').attr('action', url);
+                $('#form-destroy').submit();
+            };
+        });
+    }
+</script>
+
+@if (Session::has('success'))
+            <script type="text/javascript">
+                Swal.fire({
+                    title: "Berhasil!!",
+                    text: "{{ Session::get('success') }}",
+                    icon: "success",
+                    draggable: true
+                });
+            </script>
+@endif
+
+@endpush
