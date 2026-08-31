@@ -106,7 +106,7 @@
                             <label for="amount" class="form-label">Jumlah</label>
 
                             <input
-                                type="number"
+                                type="text"
                                 name="amount"
                                 id="amount"
                                 value="{{ old('amount', $transaction->amount) }}"

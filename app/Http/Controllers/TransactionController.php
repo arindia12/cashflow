@@ -47,14 +47,14 @@ class TransactionController extends Controller
 
     public function show(string $id)
     {
-        $transaction = Transaction::findOrFail(decrypt($id));
+        $transaction = Transaction::findOrFail($id);
 
         return view('transactions.show', compact('transaction'));
     }
 
     public function edit(string $id)
     {
-        $transaction = Transaction::findOrFail(decrypt($id));
+        $transaction = Transaction::findOrFail($id);
         $categories = Category::all();
 
         return view('transactions.edit', compact('transaction', 'categories'));
@@ -62,7 +62,7 @@ class TransactionController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $transaction = Transaction::findOrFail(decrypt($id));
+        $transaction = Transaction::findOrFail($id);
 
         $request->validate([
             'category_id' => 'required|exists:categories,id',
@@ -87,12 +87,9 @@ class TransactionController extends Controller
 
     public function destroy(string $id)
     {
-        $transaction = Transaction::findOrFail(decrypt($id));
-
+        $transaction = Transaction::findOrFail($id);
         $transaction->delete();
 
-        return redirect()
-            ->route('transactions.index')
-            ->with('success', 'Data transaksi berhasil dihapus.');
+        return redirect()->route('transactions.index')->with('success', 'Data transaksi berhasil dihapus.');
     }
 }

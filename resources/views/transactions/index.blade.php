@@ -63,19 +63,19 @@
 
                             <td>
 
-                                <a href="{{ route('transactions.show') }}"
+                                <a href="{{ route('transactions.show', $transaction->id) }}"
                                    class="btn btn-link text-secondary p-0 mx-2">
                                     <span class="fa fa-search"></span>
                                 </a>
 
-                                <a href="{{ route('transactions.edit') }}"
+                                <a href="{{ route('transactions.edit', $transaction->id) }}"
                                    class="btn btn-link p-0 mx-2">
                                     <span class="fa fa-edit"></span>
                                 </a>
 
-                                <a href="{{ route('transactions.destroy') }}"
+                                <a href="#" onclick="handleDestroy('{{ route('transactions.destroy', $transaction->id) }}')"
                                    class="btn btn-link text-danger p-0 mx-2">
-                                    <span class="fa fa-trash"></span>
+                                   <span class="fa fa-trash"></span>
                                 </a>
 
                             </td>
