@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Transaksi')
+@section('title', 'Kategori')
 
 @section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Transaksi</h1>
+        <h1 class="h3 mb-0 text-gray-800">Kategori</h1>
     </div>
 
     <div class="card">
@@ -13,12 +13,12 @@
         <div class="card-header d-flex align-items-center justify-content-between">
 
             <h5 class="card-title mb-0">
-                Data Transaksi
+                Data Kategori
             </h5>
 
-            <a href="{{ route('transactions.create') }}" class="btn btn-primary">
+            <a href="{{ route('categories.create') }}" class="btn btn-primary">
                 <span class="fa fa-plus-circle mr-2"></span>
-                <span>Tambah Transaksi</span>
+                <span>Tambah Kategori</span>
             </a>
 
         </div>
@@ -30,44 +30,37 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Tanggal</th>
-                        <th>Kategori</th>
-                        <th>Jenis</th>
-                        <th>Jumlah</th>
-                        <th>Keterangan</th>
+                        <th>Nama Kategori</th>
                         <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
-                    @foreach ($transactions as $transaction)
+                    @foreach ($categories as $category)
 
                         <tr>
 
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $transaction->date }}</td>
-                            <td>{{ $transaction->category->name ?? '-' }}</td>
-                            <td>{{ $transaction->type }}</td>
-                            <td>
-                                Rp {{ number_format($transaction->amount, 0, ',', '.') }}
-                            </td>
-                            <td>
-                                {{ $transaction->description ?? '-' }}
-                            </td>
+
+                            <td>{{ $category->name }}</td>
 
                             <td>
 
-                                <a href="{{ route('transactions.show', encrypt($transaction->id)) }}" class="btn btn-link text-secondary p-0 mx-2">
+                                <a href="{{ route('categories.show', encrypt($category->id)) }}"
+                                   class="btn btn-link text-secondary p-0 mx-2">
                                     <span class="fa fa-search"></span>
                                 </a>
 
-                                <a href="{{ route('transactions.edit', encrypt($transaction->id)) }}" class="btn btn-link p-0 mx-2">
+                                <a href="{{ route('categories.edit', encrypt($category->id)) }}"
+                                   class="btn btn-link p-0 mx-2">
                                     <span class="fa fa-edit"></span>
                                 </a>
 
-                                <a href="#" onclick="handleDestroy('{{ route('transactions.destroy', encrypt($transaction->id)) }}')" class="btn btn-link text-danger p-0 mx-2">
-                                   <span class="fa fa-trash"></span>
+                                <a href="#"
+                                   onclick="handleDestroy('{{ route('categories.destroy', encrypt($category->id)) }}')"
+                                   class="btn btn-link text-danger p-0 mx-2">
+                                    <span class="fa fa-trash"></span>
                                 </a>
 
                             </td>
@@ -80,10 +73,10 @@
 
             </table>
 
-<form id="form-destroy" method="POST" style="display: none;">
-    @csrf
-    @method('DELETE')
-</form>
+            <form id="form-destroy" method="POST" style="display: none;">
+                @csrf
+                @method('DELETE')
+            </form>
 
         </div>
 
@@ -96,12 +89,16 @@
 @endpush
 
 @push('scripts')
+
 <script type="text/javascript" src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
 <script type="text/javascript">
+
     $('.datatable').dataTable();
-    
+
     function handleDestroy(url) {
+
         Swal.fire({
             title: "Apakah kamu ingin menghapus?",
             text: "Kamu tidak bisa mengembalikan data yang sudah dihapus!",
@@ -110,23 +107,31 @@
             confirmButtonText: "Ya, Hapus!",
             cancelButtonText: "Batal"
         }).then((result) => {
+
             if (result.isConfirmed) {
                 $('#form-destroy').attr('action', url);
                 $('#form-destroy').submit();
-            };
+            }
+
         });
+
     }
+
 </script>
 
 @if (Session::has('success'))
-            <script type="text/javascript">
-                Swal.fire({
-                    title: "Berhasil!!",
-                    text: "{{ Session::get('success') }}",
-                    icon: "success",
-                    draggable: true
-                });
-            </script>
+
+    <script type="text/javascript">
+
+        Swal.fire({
+            title: "Berhasil!!",
+            text: "{{ Session::get('success') }}",
+            icon: "success",
+            draggable: true
+        });
+
+    </script>
+
 @endif
 
 @endpush

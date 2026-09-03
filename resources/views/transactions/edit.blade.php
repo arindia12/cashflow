@@ -13,7 +13,7 @@
 
             <div class="card">
 
-                <form action="{{ route('transactions.update', $transaction->id) }}" method="POST">
+                <form action="{{ route('transactions.update', encrypt($transaction->id)) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -109,7 +109,7 @@
                                 type="text"
                                 name="amount"
                                 id="amount"
-                                value="{{ old('amount', $transaction->amount) }}"
+                                value="{{ old('amount', number_format($transaction->amount, 0, ',', '.')) }}"
                                 class="form-control @error('amount') is-invalid @enderror">
 
                             @error('amount')

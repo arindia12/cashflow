@@ -24,6 +24,10 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'amount' => str_replace('.', '', $request->amount)
+        ]);
+
         $request->validate([
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:income,expense',
@@ -40,21 +44,19 @@ class TransactionController extends Controller
             'amount' => $request->amount,
         ]);
 
-        return redirect()
-            ->route('transactions.index')
-            ->with('success', 'Data transaksi berhasil ditambahkan.');
+        return redirect()->route('transactions.index')->with('success', 'Data transaksi berhasil ditambahkan.');
     }
 
     public function show(string $id)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::findOrFail(decrypt($id));
 
         return view('transactions.show', compact('transaction'));
     }
 
     public function edit(string $id)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::findOrFail(decrypt($id));
         $categories = Category::all();
 
         return view('transactions.edit', compact('transaction', 'categories'));
@@ -62,8 +64,12 @@ class TransactionController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::findOrFail(decrypt($id));
 
+        $request->merge([
+            'amount' => str_replace('.', '', $request->amount)
+        ]);
+        
         $request->validate([
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:income,expense',
@@ -80,14 +86,12 @@ class TransactionController extends Controller
             'amount' => $request->amount,
         ]);
 
-        return redirect()
-            ->route('transactions.index')
-            ->with('success', 'Data transaksi berhasil diupdate.');
+        return redirect()->route('transactions.index')->with('success', 'Data transaksi berhasil diperbarui.');
     }
 
     public function destroy(string $id)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::findOrFail(decrypt($id));
         $transaction->delete();
 
         return redirect()->route('transactions.index')->with('success', 'Data transaksi berhasil dihapus.');

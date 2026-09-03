@@ -88,7 +88,7 @@
             <!-- Kategori -->
             <li class="nav-item">
 
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('categories.index') }}">
                     <i class="fas fa-fw fa-tags"></i>
                     <span>Kategori</span>
                 </a>
@@ -98,7 +98,7 @@
             <!-- Profil -->
             <li class="nav-item">
 
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('profile.index') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Profil</span>
                 </a>
@@ -259,7 +259,7 @@
     </a>
 
 
-    <!-- jQuery -->
+       <!-- jQuery -->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
     <!-- Bootstrap -->
@@ -271,8 +271,10 @@
     <!-- SB Admin 2 JS -->
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
-    @stack('scripts')
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@stack('scripts')
 
 </body>
-
 </html>
