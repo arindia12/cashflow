@@ -26,6 +26,17 @@
         href="{{ asset('css/sb-admin-2.min.css') }}"
         rel="stylesheet">
 
+    <!-- Custom Sidebar -->
+    <style>
+        #accordionSidebar {
+            min-height: 100vh;
+        }
+
+        .sidebar-spacer {
+            flex: 1;
+        }
+    </style>
+
     @stack('styles')
 
 </head>
@@ -79,8 +90,11 @@
             <li class="nav-item">
 
                 <a class="nav-link" href="{{ route('transactions.index') }}">
+
                     <i class="fas fa-fw fa-exchange-alt"></i>
+
                     <span>Transaksi</span>
+
                 </a>
 
             </li>
@@ -89,8 +103,11 @@
             <li class="nav-item">
 
                 <a class="nav-link" href="{{ route('categories.index') }}">
+
                     <i class="fas fa-fw fa-tags"></i>
+
                     <span>Kategori</span>
+
                 </a>
 
             </li>
@@ -99,11 +116,19 @@
             <li class="nav-item">
 
                 <a class="nav-link" href="{{ route('profile.index') }}">
+
                     <i class="fas fa-fw fa-user"></i>
+
                     <span>Profil</span>
+
                 </a>
 
             </li>
+
+
+            <!-- Spacer -->
+            <div class="sidebar-spacer"></div>
+
 
             <hr class="sidebar-divider">
 
@@ -117,6 +142,7 @@
                     document.getElementById('logout-form').submit();">
 
                     <i class="fas fa-sign-out-alt"></i>
+
                     <span>Logout</span>
 
                 </a>
@@ -132,6 +158,7 @@
                 </form>
 
             </li>
+
 
             <!-- Sidebar Toggler -->
             <div class="text-center d-none d-md-inline">
@@ -180,23 +207,31 @@
                                 data-toggle="dropdown">
 
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    {{ Auth::user()->name ?? ''}}
+                                    {{ Auth::user()->name ?? '' }}
                                 </span>
 
                                 <i class="fas fa-user-circle fa-lg"></i>
 
                             </a>
 
+
                             <div
                                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
 
-                                <a class="dropdown-item" href="#">
+                                <a
+                                    class="dropdown-item"
+                                    href="{{ route('profile.index') }}">
+
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+
                                     Profil
+
                                 </a>
 
+
                                 <div class="dropdown-divider"></div>
+
 
                                 <a
                                     class="dropdown-item"
@@ -205,6 +240,7 @@
                                     document.getElementById('logout-form').submit();">
 
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+
                                     Logout
 
                                 </a>
@@ -228,6 +264,7 @@
 
             </div>
 
+
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
 
@@ -235,7 +272,9 @@
 
                     <div class="copyright text-center my-auto">
 
-                        <span>CashFlow &copy; {{ date('Y') }}</span>
+                        <span>
+                            CashFlow &copy; {{ date('Y') }}
+                        </span>
 
                     </div>
 
@@ -249,6 +288,7 @@
 
     </div>
 
+
     <!-- Scroll to Top -->
     <a
         class="scroll-to-top rounded"
@@ -259,7 +299,7 @@
     </a>
 
 
-       <!-- jQuery -->
+    <!-- jQuery -->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
     <!-- Bootstrap -->
@@ -274,7 +314,8 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@stack('scripts')
+    @stack('scripts')
 
 </body>
+
 </html>

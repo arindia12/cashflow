@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                Rp 0
+                                Rp {{ number_format($income, 0, ', ', '.') }}
                             </div>
 
                         </div>
@@ -59,7 +59,7 @@
                             </div>
 
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                Rp 0
+                                Rp {{ number_format($expense, 0, ', ', '.') }}
                             </div>
 
                         </div>
@@ -89,7 +89,7 @@
                             </div>
 
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                Rp 0
+                                Rp {{ number_format($balance, 0, ', ', '.') }}
                             </div>
 
                         </div>
@@ -153,11 +153,53 @@
 
                 <div class="card-body">
 
-                    <p class="text-center text-muted mb-0">
-                        Belum ada transaksi.
-                    </p>
+    @forelse ($latestTransactions as $transaction)
+
+        <div class="mb-3">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+                    <strong>
+                        {{ $transaction->category->name ?? '-' }}
+                    </strong>
+
+                    <div class="small text-muted">
+                        {{ \Carbon\Carbon::parse($transaction->date)->format('d-m-Y') }}
+                    </div>
+                </div>
+
+                <div class="text-right">
+
+                    @if ($transaction->type == 'income')
+                        <span class="text-success font-weight-bold">
+                            + Rp {{ number_format($transaction->amount, 0, ',', '.') }}
+                        </span>
+                    @else
+                        <span class="text-danger font-weight-bold">
+                            - Rp {{ number_format($transaction->amount, 0, ',', '.') }}
+                        </span>
+                    @endif
 
                 </div>
+
+            </div>
+
+        </div>
+
+        @if (!$loop->last)
+            <hr>
+        @endif
+
+    @empty
+
+        <p class="text-center text-muted mb-0">
+            Belum ada transaksi.
+        </p>
+
+    @endforelse
+
+</div>
 
             </div>
 
@@ -176,15 +218,15 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+                    labels: @json($months),
                     datasets: [
                         {
                             label: 'Pemasukan',
-                            data: [0, 0, 0, 0, 0, 0]
+                            data: @json($incomeData)
                         },
                         {
                             label: 'Pengeluaran',
-                            data: [0, 0, 0, 0, 0, 0]
+                            data: @json($expenseData)
                         }
                     ]
                 },
