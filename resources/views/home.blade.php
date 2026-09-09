@@ -1,5 +1,31 @@
 @extends('layouts.app')
 
+@push('styles')
+<style>
+    /* Latar halaman pink tipis. #content-wrapper adalah pembungkus konten
+       utama di SB Admin 2 (di luar sidebar) — kalau nama class beda di
+       layout kamu, ganti selector ini ke wrapper yang sesuai. */
+    #content-wrapper, body { background-color: #fdf4f8 !important; }
+
+    .cf-stat-card { border: none; border-radius: 16px; box-shadow: 0 2px 14px rgba(0,0,0,0.06); }
+    .cf-stat-icon {
+        width: 46px; height: 46px; border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.2rem;
+        margin-right: 16px; /* Bootstrap 4 gak punya utility "gap-3", jadi jaraknya harus pakai margin manual */
+        flex-shrink: 0;
+    }
+    .cf-icon-in    { background: #fdeef4; color: #ec4899; }
+    .cf-icon-out   { background: #fdeef4; color: #ec4899; }
+    .cf-icon-saldo { background: #fdeef4; color: #ec4899; }
+    .cf-card { border: none; border-radius: 16px; box-shadow: 0 2px 14px rgba(0,0,0,0.06); }
+    .cf-card .card-header { background: #fff; border-bottom: 1px solid #f5e3ec; border-radius: 16px 16px 0 0; font-weight: 600; }
+    .cf-badge-in  { background: #e6f6ea; color: #1e9e4c; padding: 2px 8px; border-radius: 6px; font-size: .75rem; }
+    .cf-badge-out { background: #fdeaea; color: #d64545; padding: 2px 8px; border-radius: 6px; font-size: .75rem; }
+    a.small.cf-link { color: #ec4899; }
+</style>
+@endpush
+
 @section('content')
 
     <!-- Page Heading -->
@@ -17,27 +43,21 @@
 
         <!-- Total Pemasukan -->
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
+            <div class="card cf-stat-card h-100">
+                <div class="card-body d-flex align-items-center">
 
-                    <div class="row no-gutters align-items-center">
+                    <div class="cf-stat-icon cf-icon-in">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
 
-                        <div class="col mr-2">
-
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total Pemasukan
-                            </div>
-
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                Rp {{ number_format($income, 0, ', ', '.') }}
-                            </div>
-
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-gray-600">
+                            Total Pemasukan
                         </div>
 
-                        <div class="col-auto">
-                            <i class="fas fa-arrow-up fa-2x text-gray-300"></i>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            Rp {{ number_format($income, 0, ',', '.') }}
                         </div>
-
                     </div>
 
                 </div>
@@ -47,27 +67,21 @@
 
         <!-- Total Pengeluaran -->
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
+            <div class="card cf-stat-card h-100">
+                <div class="card-body d-flex align-items-center">
 
-                    <div class="row no-gutters align-items-center">
+                    <div class="cf-stat-icon cf-icon-out">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
 
-                        <div class="col mr-2">
-
-                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                Total Pengeluaran
-                            </div>
-
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                Rp {{ number_format($expense, 0, ', ', '.') }}
-                            </div>
-
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-gray-600">
+                            Total Pengeluaran
                         </div>
 
-                        <div class="col-auto">
-                            <i class="fas fa-arrow-down fa-2x text-gray-300"></i>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            Rp {{ number_format($expense, 0, ',', '.') }}
                         </div>
-
                     </div>
 
                 </div>
@@ -77,27 +91,21 @@
 
         <!-- Saldo -->
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
+            <div class="card cf-stat-card h-100">
+                <div class="card-body d-flex align-items-center">
 
-                    <div class="row no-gutters align-items-center">
+                    <div class="cf-stat-icon cf-icon-saldo">
+                        <i class="fas fa-wallet"></i>
+                    </div>
 
-                        <div class="col mr-2">
-
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Saldo Saat Ini
-                            </div>
-
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                Rp {{ number_format($balance, 0, ', ', '.') }}
-                            </div>
-
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-gray-600">
+                            Saldo Saat Ini
                         </div>
 
-                        <div class="col-auto">
-                            <i class="fas fa-wallet fa-2x text-gray-300"></i>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            Rp {{ number_format($balance, 0, ',', '.') }}
                         </div>
-
                     </div>
 
                 </div>
@@ -113,10 +121,10 @@
         <!-- Grafik -->
         <div class="col-xl-8 col-lg-7 mb-4">
 
-            <div class="card shadow">
+            <div class="card cf-card shadow-sm">
 
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">
+                    <h6 class="m-0 font-weight-bold" style="color:#ec4899;">
                         Ringkasan 6 Bulan Terakhir
                     </h6>
                 </div>
@@ -137,15 +145,15 @@
         <!-- Transaksi Terbaru -->
         <div class="col-xl-4 col-lg-5 mb-4">
 
-            <div class="card shadow">
+            <div class="card cf-card shadow-sm">
 
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
 
-                    <h6 class="m-0 font-weight-bold text-primary">
+                    <h6 class="m-0 font-weight-bold" style="color:#ec4899;">
                         Transaksi Terbaru
                     </h6>
 
-                    <a href="{{ route('transactions.index') }}" class="small">
+                    <a href="{{ route('transactions.index') }}" class="small cf-link">
                         Lihat semua
                     </a>
 
@@ -163,9 +171,10 @@
                     <strong>
                         {{ $transaction->category->name ?? '-' }}
                     </strong>
-
-                    <div class="small text-muted">
-                        {{ \Carbon\Carbon::parse($transaction->date)->format('d-m-Y') }}
+                    <div>
+                        <span class="{{ $transaction->type == 'income' ? 'cf-badge-in' : 'cf-badge-out' }}">
+                            {{ $transaction->type == 'income' ? 'Pemasukan' : 'Pengeluaran' }}
+                        </span>
                     </div>
                 </div>
 
@@ -180,6 +189,10 @@
                             - Rp {{ number_format($transaction->amount, 0, ',', '.') }}
                         </span>
                     @endif
+
+                    <div class="small text-muted">
+                        {{ \Carbon\Carbon::parse($transaction->date)->format('d-m-Y') }}
+                    </div>
 
                 </div>
 
@@ -222,11 +235,13 @@
                     datasets: [
                         {
                             label: 'Pemasukan',
-                            data: @json($incomeData)
+                            data: @json($incomeData),
+                            backgroundColor: '#ec4899'
                         },
                         {
                             label: 'Pengeluaran',
-                            data: @json($expenseData)
+                            data: @json($expenseData),
+                            backgroundColor: '#fbc7dd'
                         }
                     ]
                 },
