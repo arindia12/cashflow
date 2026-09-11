@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Detail - Transaction Page')
+@section('title', 'Detail Transaksi')
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail - Transaction Page</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Transaksi</h1>
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card cf-card">
 
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Detail Transaction</h5>
+                    <h5 class="card-title mb-0">Detail Transaksi</h5>
                 </div>
 
                 <div class="card-body">
@@ -28,11 +28,11 @@
 
                     <div class="form-group mb-3">
                         <label class="form-label">Jenis Transaksi</label>
-                        <input
-                            type="text"
-                            value="{{ $transaction->type }}"
-                            class="form-control"
-                            readonly>
+                        <div>
+                            <span class="{{ $transaction->type == 'income' ? 'cf-badge-in' : 'cf-badge-out' }}">
+                                {{ $transaction->type == 'income' ? 'Pemasukan' : 'Pengeluaran' }}
+                            </span>
+                        </div>
                     </div>
 
                     <div class="form-group mb-3">
@@ -64,9 +64,9 @@
                 </div>
 
                 <div class="card-footer">
-                    <a href="{{ route('transactions.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('transactions.index') }}" class="btn btn-cf-outline">
                         <span class="fa fa-arrow-left"></span>
-                        Back
+                        Kembali
                     </a>
                 </div>
 

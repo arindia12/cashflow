@@ -8,7 +8,7 @@
         <h1 class="h3 mb-0 text-gray-800">Kategori</h1>
     </div>
 
-    <div class="card">
+    <div class="card cf-card">
 
         <div class="card-header d-flex align-items-center justify-content-between">
 
@@ -16,7 +16,7 @@
                 Data Kategori
             </h5>
 
-            <a href="{{ route('categories.create') }}" class="btn btn-primary">
+            <a href="{{ route('categories.create') }}" class="btn btn-cf-pink">
                 <span class="fa fa-plus-circle mr-2"></span>
                 <span>Tambah Kategori</span>
             </a>
@@ -25,12 +25,13 @@
 
         <div class="card-body">
 
-            <table class="table table-striped table-hover datatable">
+            <table class="table table-hover datatable">
 
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Nama Kategori</th>
+                        <th>Jenis</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -46,6 +47,12 @@
                             <td>{{ $category->name }}</td>
 
                             <td>
+                                <span class="{{ $category->type == 'income' ? 'cf-badge-in' : 'cf-badge-out' }}">
+                                    {{ $category->type == 'income' ? 'Pemasukan' : 'Pengeluaran' }}
+                                </span>
+                            </td>
+
+                            <td>
 
                                 <a href="{{ route('categories.show', encrypt($category->id)) }}"
                                    class="btn btn-link text-secondary p-0 mx-2">
@@ -53,7 +60,7 @@
                                 </a>
 
                                 <a href="{{ route('categories.edit', encrypt($category->id)) }}"
-                                   class="btn btn-link p-0 mx-2">
+                                   class="btn btn-link p-0 mx-2" style="color:#ec4899;">
                                     <span class="fa fa-edit"></span>
                                 </a>
 
@@ -104,6 +111,7 @@
             text: "Kamu tidak bisa mengembalikan data yang sudah dihapus!",
             icon: "warning",
             showCancelButton: true,
+            confirmButtonColor: "#ec4899",
             confirmButtonText: "Ya, Hapus!",
             cancelButtonText: "Batal"
         }).then((result) => {

@@ -8,7 +8,7 @@
         <h1 class="h3 mb-0 text-gray-800">Transaksi</h1>
     </div>
 
-    <div class="card">
+    <div class="card cf-card">
 
         <div class="card-header d-flex align-items-center justify-content-between">
 
@@ -16,7 +16,7 @@
                 Data Transaksi
             </h5>
 
-            <a href="{{ route('transactions.create') }}" class="btn btn-primary">
+            <a href="{{ route('transactions.create') }}" class="btn btn-cf-pink">
                 <span class="fa fa-plus-circle mr-2"></span>
                 <span>Tambah Transaksi</span>
             </a>
@@ -25,7 +25,7 @@
 
         <div class="card-body">
 
-            <table class="table table-striped table-hover datatable">
+            <table class="table table-hover datatable">
 
                 <thead>
                     <tr>
@@ -48,7 +48,11 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $transaction->date }}</td>
                             <td>{{ $transaction->category->name ?? '-' }}</td>
-                            <td>{{ $transaction->type }}</td>
+                            <td>
+                                <span class="{{ $transaction->type == 'income' ? 'cf-badge-in' : 'cf-badge-out' }}">
+                                    {{ $transaction->type == 'income' ? 'Pemasukan' : 'Pengeluaran' }}
+                                </span>
+                            </td>
                             <td>
                                 Rp {{ number_format($transaction->amount, 0, ',', '.') }}
                             </td>
@@ -62,7 +66,7 @@
                                     <span class="fa fa-search"></span>
                                 </a>
 
-                                <a href="{{ route('transactions.edit', encrypt($transaction->id)) }}" class="btn btn-link p-0 mx-2">
+                                <a href="{{ route('transactions.edit', encrypt($transaction->id)) }}" class="btn btn-link p-0 mx-2" style="color:#ec4899;">
                                     <span class="fa fa-edit"></span>
                                 </a>
 
@@ -100,13 +104,14 @@
 <script type="text/javascript" src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 <script type="text/javascript">
     $('.datatable').dataTable();
-    
+
     function handleDestroy(url) {
         Swal.fire({
             title: "Apakah kamu ingin menghapus?",
             text: "Kamu tidak bisa mengembalikan data yang sudah dihapus!",
             icon: "warning",
             showCancelButton: true,
+            confirmButtonColor: "#ec4899",
             confirmButtonText: "Ya, Hapus!",
             cancelButtonText: "Batal"
         }).then((result) => {

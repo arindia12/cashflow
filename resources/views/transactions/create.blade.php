@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Create New - Transactions Page')
+@section('title', 'Tambah Transaksi')
 
 @section('content')
 
-    <div class="d-sm-flex align-items-center justify-button-mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Create New - Transactions Page</h1>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Tambah Transaksi</h1>
     </div>
 
     <div class="row">
         <div class="col-md-6">
 
-            <div class="card">
+            <div class="card cf-card">
 
                 <form action="{{ route('transactions.store') }}" method="POST">
                     @csrf
 
                     <div class="card-header">
-                        <h5 class="card-title">Create New Transactions</h5>
+                        <h5 class="card-title">Tambah Transaksi Baru</h5>
                     </div>
 
                     <div class="card-body">
@@ -133,14 +133,14 @@
 
                     <div class="card-footer">
 
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-cf-pink">
                             <span class="fa fa-save"></span>
-                            Save
+                            Simpan
                         </button>
 
-                        <a href="{{ route('transactions.index') }}" class="btn btn-secondary">
+                        <a href="{{ route('transactions.index') }}" class="btn btn-cf-outline">
                             <span class="fa fa-times-circle"></span>
-                            Cancel
+                            Batal
                         </a>
 
                     </div>

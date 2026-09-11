@@ -26,7 +26,7 @@
         href="{{ asset('css/sb-admin-2.min.css') }}"
         rel="stylesheet">
 
-    <!-- Custom Sidebar -->
+    <!-- Custom Sidebar & Theme -->
     <style>
         #accordionSidebar {
             min-height: 100vh;
@@ -34,6 +34,80 @@
 
         .sidebar-spacer {
             flex: 1;
+        }
+
+        /* ============ CashFlow pink theme (global) ============ */
+        #content-wrapper, body { background-color: #fdf4f8 !important; }
+
+        .cf-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+        }
+        .cf-card .card-header {
+            background: #fff;
+            border-bottom: 1px solid #f5e3ec;
+            border-radius: 16px 16px 0 0;
+            font-weight: 600;
+        }
+        .cf-card .card-footer {
+            background: #fff;
+            border-top: 1px solid #f5e3ec;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .btn-cf-pink { background-color: #ec4899; border-color: #ec4899; color: #fff; }
+        .btn-cf-pink:hover, .btn-cf-pink:focus { background-color: #c2185b; border-color: #c2185b; color: #fff; }
+
+        .btn-cf-outline { border: 1px solid #ec4899; color: #ec4899; background: #fff; }
+        .btn-cf-outline:hover, .btn-cf-outline:focus { background: #fdeef4; color: #c2185b; }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #ec4899;
+            box-shadow: 0 0 0 0.2rem rgba(236,72,153,.15);
+        }
+
+        .cf-badge-in  { background: #e6f6ea; color: #1e9e4c; padding: 2px 10px; border-radius: 6px; font-size: .78rem; }
+        .cf-badge-out { background: #fdeaea; color: #d64545; padding: 2px 10px; border-radius: 6px; font-size: .78rem; }
+
+        .cf-avatar {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: #fdeef4; display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem; color: #ec4899; margin: 0 auto 16px;
+        }
+
+        .cf-card table thead th { color: #888; font-weight: 600; border-top: none; }
+        .cf-stat-icon { margin-right: 16px; flex-shrink: 0; }
+
+        /* ============ Sidebar recolor (ganti biru default SB Admin 2) ============ */
+        .sidebar.bg-gradient-primary {
+            background: linear-gradient(180deg, #ec4899 0%, #c2185b 100%) !important;
+        }
+        .sidebar .nav-item .nav-link {
+            color: rgba(255,255,255,.85);
+        }
+        .sidebar .nav-item .nav-link:hover,
+        .sidebar .nav-item .nav-link:focus {
+            color: #fff;
+        }
+        .sidebar .nav-item.active .nav-link {
+            color: #fff;
+            font-weight: 700;
+        }
+        .sidebar hr.sidebar-divider {
+            border-top: 1px solid rgba(255,255,255,.25);
+        }
+        .sidebar .sidebar-heading {
+            color: rgba(255,255,255,.65);
+        }
+        .sidebar-brand-text {
+            color: #fff;
+        }
+        .sidebar #sidebarToggle {
+            background-color: rgba(255,255,255,.2);
+        }
+        .sidebar #sidebarToggle::after {
+            color: #fff;
         }
     </style>
 
@@ -87,7 +161,7 @@
             </div>
 
             <!-- Transaksi -->
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('transactions.*') ? 'active' : '' }}">
 
                 <a class="nav-link" href="{{ route('transactions.index') }}">
 
@@ -100,7 +174,7 @@
             </li>
 
             <!-- Kategori -->
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('categories.*') ? 'active' : '' }}">
 
                 <a class="nav-link" href="{{ route('categories.index') }}">
 
@@ -113,7 +187,7 @@
             </li>
 
             <!-- Profil -->
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
 
                 <a class="nav-link" href="{{ route('profile.index') }}">
 
@@ -125,49 +199,28 @@
 
             </li>
 
-
-            <!-- Spacer -->
-            <div class="sidebar-spacer"></div>
-
-
             <hr class="sidebar-divider">
 
             <!-- Logout -->
             <li class="nav-item">
-
-                <a
-                    class="nav-link"
-                    href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i>
-
                     <span>Logout</span>
-
                 </a>
 
-                <form
-                    id="logout-form"
-                    action="{{ route('logout') }}"
-                    method="POST"
-                    class="d-none">
-
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
-
                 </form>
-
             </li>
 
+            <!-- Spacer: Logout nempel di bawah menu, sisa tinggi sidebar
+                 mengisi kekosongan di bawah sini (bukan sebelum Logout) -->
+            <div class="sidebar-spacer"></div>
 
             <!-- Sidebar Toggler -->
             <div class="text-center d-none d-md-inline">
-
-                <button
-                    class="rounded-circle border-0"
-                    id="sidebarToggle">
-                </button>
-
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
         </ul>

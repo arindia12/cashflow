@@ -1,24 +1,24 @@
 @extends('layouts.app')
 
-@section('title', 'Edit - Transactions Page')
+@section('title', 'Edit Transaksi')
 
 @section('content')
 
-    <div class="d-sm-flex align-items-center justify-button-mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Edit - Transactions Page</h1>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit Transaksi</h1>
     </div>
 
     <div class="row">
         <div class="col-md-6">
 
-            <div class="card">
+            <div class="card cf-card">
 
                 <form action="{{ route('transactions.update', encrypt($transaction->id)) }}" method="POST">
                     @csrf
                     @method('PUT')
 
                     <div class="card-header">
-                        <h5 class="card-title">Edit Transactions</h5>
+                        <h5 class="card-title">Edit Transaksi</h5>
                     </div>
 
                     <div class="card-body">
@@ -140,14 +140,14 @@
 
                     <div class="card-footer">
 
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-cf-pink">
                             <span class="fa fa-save"></span>
-                            Save
+                            Update
                         </button>
 
-                        <a href="{{ route('transactions.index') }}" class="btn btn-secondary">
+                        <a href="{{ route('transactions.index') }}" class="btn btn-cf-outline">
                             <span class="fa fa-times-circle"></span>
-                            Cancel
+                            Batal
                         </a>
 
                     </div>

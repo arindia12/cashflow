@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-6">
 
-            <div class="card">
+            <div class="card cf-card">
 
                 <form action="{{ route('categories.update', encrypt($category->id)) }}" method="POST">
                     @csrf
@@ -41,18 +41,43 @@
                             @enderror
                         </div>
 
+                        <!-- Jenis -->
+                        <div class="form-group mb-3">
+                            <label for="type" class="form-label">Jenis</label>
+
+                            <select
+                                name="type"
+                                id="type"
+                                class="form-control @error('type') is-invalid @enderror">
+
+                                <option value="">-- Pilih Jenis --</option>
+                                <option value="income" {{ old('type', $category->type) == 'income' ? 'selected' : '' }}>
+                                    Pemasukan
+                                </option>
+                                <option value="expense" {{ old('type', $category->type) == 'expense' ? 'selected' : '' }}>
+                                    Pengeluaran
+                                </option>
+                            </select>
+
+                            @error('type')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
                     </div>
 
                     <div class="card-footer">
 
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-cf-pink">
                             <span class="fa fa-save"></span>
                             Update
                         </button>
 
-                        <a href="{{ route('categories.index') }}" class="btn btn-secondary">
+                        <a href="{{ route('categories.index') }}" class="btn btn-cf-outline">
                             <span class="fa fa-times-circle"></span>
-                            Cancel
+                            Batal
                         </a>
 
                     </div>
