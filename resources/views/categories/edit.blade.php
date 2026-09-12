@@ -13,7 +13,7 @@
 
             <div class="card cf-card">
 
-                <form action="{{ route('categories.update', encrypt($category->id)) }}" method="POST">
+                <form action="{{ route('admin.categories.update', encrypt($category->id)) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -75,7 +75,7 @@
                             Update
                         </button>
 
-                        <a href="{{ route('categories.index') }}" class="btn btn-cf-outline">
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-cf-outline">
                             <span class="fa fa-times-circle"></span>
                             Batal
                         </a>

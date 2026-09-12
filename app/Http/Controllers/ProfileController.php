@@ -21,7 +21,7 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
         $data = [
@@ -32,9 +32,9 @@ class ProfileController extends Controller
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
- 
+
         $user->update($data);
 
-        return redirect()->route('profile.index')->with('success', 'Profil berhasil diperbarui.');
+        return redirect()->route('admin.profile.index')->with('success', 'Profil berhasil diperbarui.');
     }
 }

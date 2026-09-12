@@ -2,9 +2,6 @@
 
 @push('styles')
 <style>
-    /* Latar halaman pink tipis. #content-wrapper adalah pembungkus konten
-       utama di SB Admin 2 (di luar sidebar) — kalau nama class beda di
-       layout kamu, ganti selector ini ke wrapper yang sesuai. */
     #content-wrapper, body { background-color: #fdf4f8 !important; }
 
     .cf-stat-card { border: none; border-radius: 16px; box-shadow: 0 2px 14px rgba(0,0,0,0.06); }
@@ -12,7 +9,7 @@
         width: 46px; height: 46px; border-radius: 12px;
         display: flex; align-items: center; justify-content: center;
         font-size: 1.2rem;
-        margin-right: 16px; /* Bootstrap 4 gak punya utility "gap-3", jadi jaraknya harus pakai margin manual */
+        margin-right: 16px; 
         flex-shrink: 0;
     }
     .cf-icon-in    { background: #fdeef4; color: #ec4899; }
@@ -153,7 +150,7 @@
                         Transaksi Terbaru
                     </h6>
 
-                    <a href="{{ route('transactions.index') }}" class="small cf-link">
+                    <a href="{{ route('admin.transactions.index') }}" class="small cf-link">
                         Lihat semua
                     </a>
 

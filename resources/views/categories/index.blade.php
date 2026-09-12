@@ -16,7 +16,7 @@
                 Data Kategori
             </h5>
 
-            <a href="{{ route('categories.create') }}" class="btn btn-cf-pink">
+            <a href="{{ route('admin.categories.create') }}" class="btn btn-cf-pink">
                 <span class="fa fa-plus-circle mr-2"></span>
                 <span>Tambah Kategori</span>
             </a>
@@ -54,18 +54,18 @@
 
                             <td>
 
-                                <a href="{{ route('categories.show', encrypt($category->id)) }}"
+                                <a href="{{ route('admin.categories.show', encrypt($category->id)) }}"
                                    class="btn btn-link text-secondary p-0 mx-2">
                                     <span class="fa fa-search"></span>
                                 </a>
 
-                                <a href="{{ route('categories.edit', encrypt($category->id)) }}"
+                                <a href="{{ route('admin.categories.edit', encrypt($category->id)) }}"
                                    class="btn btn-link p-0 mx-2" style="color:#ec4899;">
                                     <span class="fa fa-edit"></span>
                                 </a>
 
                                 <a href="#"
-                                   onclick="handleDestroy('{{ route('categories.destroy', encrypt($category->id)) }}')"
+                                   onclick="handleDestroy('{{ route('admin.categories.destroy', encrypt($category->id)) }}')"
                                    class="btn btn-link text-danger p-0 mx-2">
                                     <span class="fa fa-trash"></span>
                                 </a>

@@ -13,7 +13,7 @@
 
             <div class="card cf-card">
 
-                <form action="{{ route('transactions.store') }}" method="POST">
+                <form action="{{ route('admin.transactions.store') }}" method="POST">
                     @csrf
 
                     <div class="card-header">
@@ -138,7 +138,7 @@
                             Simpan
                         </button>
 
-                        <a href="{{ route('transactions.index') }}" class="btn btn-cf-outline">
+                        <a href="{{ route('admin.transactions.index') }}" class="btn btn-cf-outline">
                             <span class="fa fa-times-circle"></span>
                             Batal
                         </a>

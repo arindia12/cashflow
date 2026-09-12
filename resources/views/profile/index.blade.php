@@ -27,21 +27,44 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Profil Saya</h1>
 
-        <a href="{{ route('home') }}" class="btn btn-cf-outline btn-sm">
+        <a href="{{ route('admin.home') }}" class="btn btn-cf-outline btn-sm">
             <i class="fas fa-arrow-left"></i> Kembali
         </a>
     </div>
 
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+    @push('scripts')
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: @json(session('success')),
+                    confirmButtonColor: '#ec4899',
+                    timer: 3000,
+                    showConfirmButton: false,
+                    timerProgressBar: true
+                });
+            </script>
+        @endif
+
+        @if ($errors->any())
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: @json($errors->first()),
+                    confirmButtonColor: '#ec4899'
+                });
+            </script>
+        @endif
+    @endpush
 
     <div class="row">
         <div class="col-md-6">
 
             <div class="card cf-card">
 
-                <form action="{{ route('profile.update') }}" method="POST">
+                <form action="{{ route('admin.profile.update') }}" method="POST">
                     @csrf
                     @method('PUT')
 

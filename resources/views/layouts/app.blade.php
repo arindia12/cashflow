@@ -81,7 +81,7 @@
 
         /* ============ Sidebar recolor (ganti biru default SB Admin 2) ============ */
         .sidebar.bg-gradient-primary {
-            background: linear-gradient(180deg, #ec4899 0%, #c2185b 100%) !important;
+            background: #FB607F !important;
         }
         .sidebar .nav-item .nav-link {
             color: rgba(255,255,255,.85);
@@ -120,110 +120,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-            id="accordionSidebar">
-
-            <!-- Brand -->
-            <a
-                class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="{{ route('home') }}">
-
-                <div class="sidebar-brand-icon">
-                    <i class="fas fa-wallet"></i>
-                </div>
-
-                <div class="sidebar-brand-text mx-3">
-                    CashFlow
-                </div>
-
-            </a>
-
-            <hr class="sidebar-divider my-0">
-
-            <!-- Dashboard -->
-            <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-
-                <a class="nav-link" href="{{ route('home') }}">
-
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-
-                    <span>Dashboard</span>
-
-                </a>
-
-            </li>
-
-            <hr class="sidebar-divider">
-
-            <!-- Menu -->
-            <div class="sidebar-heading">
-                Menu
-            </div>
-
-            <!-- Transaksi -->
-            <li class="nav-item {{ request()->routeIs('transactions.*') ? 'active' : '' }}">
-
-                <a class="nav-link" href="{{ route('transactions.index') }}">
-
-                    <i class="fas fa-fw fa-exchange-alt"></i>
-
-                    <span>Transaksi</span>
-
-                </a>
-
-            </li>
-
-            <!-- Kategori -->
-            <li class="nav-item {{ request()->routeIs('categories.*') ? 'active' : '' }}">
-
-                <a class="nav-link" href="{{ route('categories.index') }}">
-
-                    <i class="fas fa-fw fa-tags"></i>
-
-                    <span>Kategori</span>
-
-                </a>
-
-            </li>
-
-            <!-- Profil -->
-            <li class="nav-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
-
-                <a class="nav-link" href="{{ route('profile.index') }}">
-
-                    <i class="fas fa-fw fa-user"></i>
-
-                    <span>Profil</span>
-
-                </a>
-
-            </li>
-
-            <hr class="sidebar-divider">
-
-            <!-- Logout -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </li>
-
-            <!-- Spacer: Logout nempel di bawah menu, sisa tinggi sidebar
-                 mengisi kekosongan di bawah sini (bukan sebelum Logout) -->
-            <div class="sidebar-spacer"></div>
-
-            <!-- Sidebar Toggler -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
+        @include('layouts.inc.sidebar')
         <!-- End Sidebar -->
 
 
@@ -233,78 +130,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav
-                    class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle -->
-                    <button
-                        id="sidebarToggleTop"
-                        class="btn btn-link d-md-none rounded-circle mr-3">
-
-                        <i class="fa fa-bars"></i>
-
-                    </button>
-
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- User -->
-                        <li class="nav-item dropdown no-arrow">
-
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="userDropdown"
-                                role="button"
-                                data-toggle="dropdown">
-
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    {{ Auth::user()->name ?? '' }}
-                                </span>
-
-                                <i class="fas fa-user-circle fa-lg"></i>
-
-                            </a>
-
-
-                            <div
-                                class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-
-                                <a
-                                    class="dropdown-item"
-                                    href="{{ route('profile.index') }}">
-
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-
-                                    Profil
-
-                                </a>
-
-
-                                <div class="dropdown-divider"></div>
-
-
-                                <a
-                                    class="dropdown-item"
-                                    href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-
-                                    Logout
-
-                                </a>
-
-                            </div>
-
-                        </li>
-
-                    </ul>
-
-                </nav>
+                @include('layouts.inc.navbar')
                 <!-- End Topbar -->
 
 
@@ -319,21 +145,7 @@
 
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-
-                <div class="container my-auto">
-
-                    <div class="copyright text-center my-auto">
-
-                        <span>
-                            CashFlow &copy; {{ date('Y') }}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </footer>
+            @include('layouts.inc.footer')
             <!-- End Footer -->
 
         </div>

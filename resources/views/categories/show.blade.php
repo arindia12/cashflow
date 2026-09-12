@@ -42,7 +42,7 @@
 
                 <div class="card-footer">
 
-                    <a href="{{ route('categories.index') }}" class="btn btn-cf-outline">
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-cf-outline">
                         <span class="fa fa-arrow-left"></span>
                         Kembali
                     </a>

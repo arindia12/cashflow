@@ -44,7 +44,7 @@ class TransactionController extends Controller
             'amount' => $request->amount,
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Data transaksi berhasil ditambahkan.');
+        return redirect()->route('admin.transactions.index')->with('success', 'Data transaksi berhasil ditambahkan.');
     }
 
     public function show(string $id)
@@ -69,7 +69,7 @@ class TransactionController extends Controller
         $request->merge([
             'amount' => str_replace('.', '', $request->amount)
         ]);
-        
+
         $request->validate([
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:income,expense',
@@ -86,7 +86,7 @@ class TransactionController extends Controller
             'amount' => $request->amount,
         ]);
 
-        return redirect()->route('transactions.index')->with('success', 'Data transaksi berhasil diperbarui.');
+        return redirect()->route('admin.transactions.index')->with('success', 'Data transaksi berhasil diperbarui.');
     }
 
     public function destroy(string $id)
@@ -94,6 +94,6 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail(decrypt($id));
         $transaction->delete();
 
-        return redirect()->route('transactions.index')->with('success', 'Data transaksi berhasil dihapus.');
+        return redirect()->route('admin.transactions.index')->with('success', 'Data transaksi berhasil dihapus.');
     }
 }

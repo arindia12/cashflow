@@ -16,7 +16,7 @@
                 Data Transaksi
             </h5>
 
-            <a href="{{ route('transactions.create') }}" class="btn btn-cf-pink">
+            <a href="{{ route('admin.transactions.create') }}" class="btn btn-cf-pink">
                 <span class="fa fa-plus-circle mr-2"></span>
                 <span>Tambah Transaksi</span>
             </a>
@@ -62,15 +62,15 @@
 
                             <td>
 
-                                <a href="{{ route('transactions.show', encrypt($transaction->id)) }}" class="btn btn-link text-secondary p-0 mx-2">
+                                <a href="{{ route('admin.transactions.show', encrypt($transaction->id)) }}" class="btn btn-link text-secondary p-0 mx-2">
                                     <span class="fa fa-search"></span>
                                 </a>
 
-                                <a href="{{ route('transactions.edit', encrypt($transaction->id)) }}" class="btn btn-link p-0 mx-2" style="color:#ec4899;">
+                                <a href="{{ route('admin.transactions.edit', encrypt($transaction->id)) }}" class="btn btn-link p-0 mx-2" style="color:#ec4899;">
                                     <span class="fa fa-edit"></span>
                                 </a>
 
-                                <a href="#" onclick="handleDestroy('{{ route('transactions.destroy', encrypt($transaction->id)) }}')" class="btn btn-link text-danger p-0 mx-2">
+                                <a href="#" onclick="handleDestroy('{{ route('admin.transactions.destroy', encrypt($transaction->id)) }}')" class="btn btn-link text-danger p-0 mx-2">
                                    <span class="fa fa-trash"></span>
                                 </a>
 

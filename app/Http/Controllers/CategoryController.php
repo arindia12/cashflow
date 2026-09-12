@@ -31,7 +31,7 @@ class CategoryController extends Controller
             'type' => $request->type,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Data kategori berhasil ditambahkan.');
+        return redirect()->route('admin.categories.index')->with('success', 'Data kategori berhasil ditambahkan.');
     }
 
     public function show(string $id)
@@ -62,7 +62,7 @@ class CategoryController extends Controller
             'type' => $request->type,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Data kategori berhasil diperbarui.');
+        return redirect()->route('admin.categories.index')->with('success', 'Data kategori berhasil diperbarui.');
     }
 
     public function destroy(string $id)
@@ -71,6 +71,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Data kategori berhasil dihapus.');
+        return redirect()->route('admin.categories.index')->with('success', 'Data kategori berhasil dihapus.');
     }
 }

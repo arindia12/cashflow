@@ -13,7 +13,7 @@
 
             <div class="card cf-card">
 
-                <form action="{{ route('categories.store') }}" method="POST">
+                <form action="{{ route('admin.categories.store') }}" method="POST">
                     @csrf
 
                     <div class="card-header">
@@ -74,7 +74,7 @@
                             Simpan
                         </button>
 
-                        <a href="{{ route('categories.index') }}" class="btn btn-cf-outline">
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-cf-outline">
                             <span class="fa fa-times-circle"></span>
                             Batal
                         </a>
