@@ -37,12 +37,14 @@
         }
 
         /* ============ CashFlow pink theme (global) ============ */
-        #content-wrapper, body { background-color: #fdf4f8 !important; }
+        #content-wrapper, body { background-color: #fce4ec !important; }
 
         .cf-card {
             border: none;
             border-radius: 16px;
             box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+            background: #fdf4f8;
+            margin-bottom: 50px;
         }
         .cf-card .card-header {
             background: #fff;
@@ -81,7 +83,7 @@
 
         /* ============ Sidebar recolor (ganti biru default SB Admin 2) ============ */
         .sidebar.bg-gradient-primary {
-            background: #FB607F !important;
+            background: linear-gradient(160deg, #d42d68 0%, #ce3a6b 55%, #d4537e 100%) !important;
         }
         .sidebar .nav-item .nav-link {
             color: rgba(255,255,255,.85);

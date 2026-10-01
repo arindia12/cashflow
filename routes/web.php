@@ -7,8 +7,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    return view('welcome');
+    })->name('welcome');
 
 Auth::routes(['register' => false]);
 

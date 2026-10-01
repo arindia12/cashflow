@@ -4,7 +4,7 @@
 
 @push('styles')
 <style>
-    #content-wrapper, body { background-color: #fdf4f8 !important; }
+    #content-wrapper, body { background-color: #fce4ec !important; }
 
     .btn-cf-outline { border: 1px solid #ec4899; color: #ec4899; background: #fff; }
     .btn-cf-outline:hover { background: #fdeef4; color: #c2185b; }
@@ -19,6 +19,100 @@
     .btn-cf-pink { background-color: #ec4899; border-color: #ec4899; color: #fff; }
     .btn-cf-pink:hover { background-color: #c2185b; border-color: #c2185b; color: #fff; }
     .form-control:focus { border-color: #ec4899; box-shadow: 0 0 0 0.2rem rgba(236,72,153,.15); }
+
+    /* Kartu Tips Keuangan */
+    .cf-tips-card {
+        height: 350px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        padding: 2rem 1.5rem;
+
+        background: #fb607f;
+        border-radius: 16px;
+    }
+
+    .cf-tips-label {
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.75);
+        letter-spacing: 0.04em;
+
+        margin-bottom: 1.25rem;
+    }
+
+    .cf-tips-icon {
+        width: 64px;
+        height: 64px;
+ 
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+ 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+ 
+        margin-bottom: 1.25rem;
+    }
+
+    .cf-tips-icon i {
+        font-size: 1.6rem;
+        color: #fff;
+    }
+
+    .cf-tips-text {
+        font-size: 0.9rem;
+        color: #fff;
+        line-height: 1.6;
+ 
+        min-height: 66px;
+ 
+        display: flex;
+        align-items: center;
+    }
+
+    .cf-tips-nav {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+ 
+        margin-top: 1.25rem;
+    }
+
+    .cf-tips-nav button {
+        border: none;
+        background: none;
+        color: rgba(255,255,255,0.75);
+ 
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 4px;
+    }
+
+    .cf-tips-nav button:hover {
+        color: #fff;
+    }
+
+    .cf-tips-dots {
+        display: flex;
+        gap: 6px;
+    }
+ 
+    .cf-tips-dots span {
+        width: 6px;
+        height: 6px;
+ 
+        border-radius: 50%;
+        background: rgba(255,255,255,0.4);
+        display: inline-block;
+    }
+ 
+    .cf-tips-dots span.active {
+        background: #fff;
+    }
 </style>
 @endpush
 
@@ -59,10 +153,10 @@
         @endif
     @endpush
 
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row align-items-stretch mb-5">
+        <div class="col-md-6 mb-3 mb-md-0">
 
-            <div class="card cf-card">
+            <div class="card cf-card h-100">
 
                 <form action="{{ route('admin.profile.update') }}" method="POST">
                     @csrf
@@ -160,6 +254,95 @@
             </div>
 
         </div>
+
+        <div class="col-md-6">
+
+            <div class="card cf-card">
+
+                <div class="cf-tips-card">
+
+                    <div class="cf-tips-label">
+                        TIPS KEUANGAN
+                    </div>
+
+                    <div class="cf-tips-icon" id="cfTipsIcon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+
+                    <div class="cf-tips-text" id="cfTipsText">
+                       Sisihkan minimal 10% penghasilan untuk tabungan darurat.
+                    </div>
+
+                    <div class="cf-tips-nav">
+
+                    <button type="button" id="cfTipsPrev" aria-label="Tips sebelumnya">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="cf-tips-dots" id="cfTipsDots"></div>
+
+                    <button type="button" id="cfTipsNext" aria-label="Tips berikutnya">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
+
+    @push('scripts')
+       <script>
+           (function () {
+ 
+                var tips = [
+                    { icon: 'fa-piggy-bank', text: 'Sisihkan minimal 10% penghasilan untuk tabungan darurat.' },
+                    { icon: 'fa-book',       text: 'Catat setiap pengeluaran, sekecil apa pun, agar keuangan lebih terkontrol.' },
+                    { icon: 'fa-tags',       text: 'Pisahkan kategori kebutuhan dan keinginan sebelum belanja.' },
+                    { icon: 'fa-chart-line', text: 'Tinjau laporan keuangan bulanan secara rutin di dashboard.' },
+                    { icon: 'fa-bullseye',   text: 'Tetapkan target tabungan bulanan dan pantau progresnya.' }
+                ];
+
+                var idx = 0;
+                var iconEl = document.querySelector('#cfTipsIcon i');
+                var textEl = document.getElementById('cfTipsText');
+                var dotsEl = document.getElementById('cfTipsDots');
+ 
+                tips.forEach(function (_, i) {
+                    var d = document.createElement('span');
+                    if (i === 0) d.classList.add('active');
+                    dotsEl.appendChild(d);
+                });
+
+                function render() {
+                    iconEl.className = 'fas ' + tips[idx].icon;
+                    textEl.textContent = tips[idx].text;
+ 
+                    Array.prototype.forEach.call(dotsEl.children, function (d, i) {
+                        d.classList.toggle('active', i === idx);
+                    });
+                }
+ 
+                document.getElementById('cfTipsPrev').addEventListener('click', function () {
+                    idx = (idx - 1 + tips.length) % tips.length;
+                    render();
+                });
+
+                document.getElementById('cfTipsNext').addEventListener('click', function () {
+                    idx = (idx + 1) % tips.length;
+                    render();
+                });
+ 
+                setInterval(function () {
+                    idx = (idx + 1) % tips.length;
+                    render();
+                }, 8000);
+ 
+            })();
+        </script>
+    @endpush
 
 @endsection

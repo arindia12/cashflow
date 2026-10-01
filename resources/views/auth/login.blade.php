@@ -27,10 +27,13 @@
             align-items: center;
             justify-content: center;
 
-            background: #fce4ec;
+            background: linear-gradient(160deg, #4b1528 0%, #993556 55%, #d4537e 100%);
         }
 
         .login-card {
+            position: relative;
+            z-index: 1;
+
             width: 100%;
             max-width: 430px;
 
@@ -38,6 +41,30 @@
             border-radius: 10px;
 
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .login-wrapper {
+            position: relative;
+            padding: 30px;
+        }
+
+        .login-wrapper::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -20px;
+            right: -20px;
+
+            border-radius: 24px;
+
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.20);
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+            z-index: 0;
         }
 
         .login-content {
@@ -83,11 +110,62 @@
             border-color: #c2185b;
         }
 
+        .back-wrapper {
+            position: fixed;
+            top: 30px;
+            left: 20px;
+
+            padding: 5px;
+
+            border-radius: 12px;
+
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.20);
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
+
+            z-index: 1000;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            padding: 8px 16px;
+
+            background: #fff;
+            color: #d4145a;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            color: #c2185b;
+            text-decoration: none;
+        }
+
     </style>
 
 </head>
 
 <body>
+
+<div class="back-wrapper">
+
+    <a href="{{ url('/') }}" class="btn-back">
+
+        <i class="fas fa-arrow-left"></i>
+        Kembali
+
+    </a>
+
+</div>
 
     <div class="container">
 
@@ -95,9 +173,11 @@
 
             <div class="col-xl-5 col-lg-6 col-md-8">
 
-                <div class="card login-card my-5">
+                <div class="login-wrapper">
 
-                    <div class="login-content">
+                    <div class="card login-card">
+
+                        <div class="login-content">
 
                         <!-- Logo -->
                         <div class="text-center">
@@ -207,23 +287,25 @@
 
 
                             <!-- Login -->
-                            <button
-                                type="submit"
-                                class="btn btn-login btn-primary btn-user btn-block">
+                                <button
+                                    type="submit"
+                                    class="btn btn-login btn-primary btn-user btn-block">
 
-                                Login
+                                    Login
 
-                            </button>
+                                </button>
 
-                        </form>
+                            </form>
 
 
-                        <!-- Keterangan -->
-                        <div class="text-center mt-3">
+                            <!-- Keterangan -->
+                            <div class="text-center mt-3">
 
-                            <small class="text-muted">
-                                Gunakan akun yang telah disediakan.
-                            </small>
+                                <small class="text-muted">
+                                    Gunakan akun yang telah disediakan.
+                                </small>
+
+                            </div>
 
                         </div>
 

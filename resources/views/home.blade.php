@@ -2,7 +2,7 @@
 
 @push('styles')
 <style>
-    #content-wrapper, body { background-color: #fdf4f8 !important; }
+    #content-wrapper, body { background-color: #fce4ec !important; }
 
     .cf-stat-card { border: none; border-radius: 16px; box-shadow: 0 2px 14px rgba(0,0,0,0.06); }
     .cf-stat-icon {
